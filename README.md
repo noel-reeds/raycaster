@@ -1,3 +1,3 @@
-# A Simple Raycaster Implemented in DDA Algorithm  
+# A Simple Raycaster in DDA Algorithm  
   
 ## 1. Installation
