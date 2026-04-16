@@ -28,6 +28,7 @@ int main(void)
 			SDL_RenderClear(renderer);
 			SDL_RenderPresent(renderer);
 		}
-		SDL_Log("Event queue is empty.");
+		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
+			"Event queue is empty!");
 	}
 }
