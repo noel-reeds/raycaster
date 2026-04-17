@@ -13,11 +13,15 @@
 #include "SDL_ttf.h"
 
 /* Window or screen variables */
-extern SDL_Window *screen;
-extern SDL_Renderer *renderer;
+typedef struct {
+	SDL_Window *screen;
+	SDL_Renderer *renderer;
+} SDL_Context;
+
+extern SDL_Context *context;
 
 /* Function defs */
 bool create_game_window(void);
-
+void draw_world_map(void);
 
 #endif
