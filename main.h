@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include <SDL_image.h>
 #include "SDL_ttf.h"
-#include <stdlib.h>
+#include <math.h>
 
 /* Window or screen variables */
 typedef struct {
