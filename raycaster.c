@@ -64,6 +64,8 @@ void start_cast_rays(void) {
 		/* which wall was hit?
 		if x-side is hit, side = 0, if y-side is hit, side = 1 */
 		int side;
+		/* perpendicular dist from camera plane to the wall */
+		double pwd;
 		/* initial dist. from player and step dir */
 		if (raydir_x < 0) {
 			step_x = -1;
@@ -80,6 +82,25 @@ void start_cast_rays(void) {
 		else {
 			step = 1;
 			initial_raydist_y = (map_x + 1.0 - p8->pos_y) * raydist_y;
+		}
+		while (hit == 0) {
+			/* jump to the next square either in x-dir or y-dir */
+			if (initial_raydist_x < initial_raydist_y) {
+				initial_raydist_x += raydist_x;
+				map_x += step_x;
+				side = 0;
+			}
+			else {
+				initial_raydist_y += raydist_y;
+				map_y += raydist_y;
+				side = 1;
+			}
+			if (map[map_x][map_y] > 0)
+				hit = 1;
+			if (side == 0)
+				pwd = initial_raydist_x - raydist_x;
+			else
+				pwd = initial_raydist_y - raydist_y;
 		}
 	}
 }
