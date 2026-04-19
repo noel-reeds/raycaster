@@ -65,7 +65,7 @@ void start_cast_rays(void) {
 		if x-side is hit, side = 0, if y-side is hit, side = 1 */
 		int side;
 		/* perpendicular dist from camera plane to the wall */
-		double pwd;
+		double pw_dist;
 		/* initial dist. from player and step dir */
 		if (raydir_x < 0) {
 			step_x = -1;
@@ -98,9 +98,9 @@ void start_cast_rays(void) {
 			if (map[map_x][map_y] > 0)
 				hit = 1;
 			if (side == 0)
-				pwd = initial_raydist_x - raydist_x;
+				pw_dist = initial_raydist_x - raydist_x;
 			else
-				pwd = initial_raydist_y - raydist_y;
+				pw_dist = initial_raydist_y - raydist_y;
 		}
 	}
 }
