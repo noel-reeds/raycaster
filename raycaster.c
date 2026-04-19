@@ -44,14 +44,42 @@ void start_cast_rays(void) {
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
 		/* maps camera plane to determine ray directions */
 		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+		/* ray directions */
 		double raydir_x = p8->dir_x + camera_p->_x * camera_x;
 		double raydir_y = p8->dir_y + camera_p->_y * camera_x;
-		/* det. the box the ray is in the map */
+		/* det. the grid/square the ray is in the map */
 		int map_x = (int)p8->pos_x;
 		int map_y = (int)p8->pos_y;
 		/* length of the ray from player pos to next x or y-side */
-		double side_x;
-		double side_y;
+		double initial_raydist_x;
+		double initial_raydist_y;
 		/*length of ray from one x or y-side to next x or y-side */
+		double raydist_x = (raydir_x == 0) ? 1e30 : fabs(1 / raydir_x);
+		double raydist_y = (raydir_y == 0) ? 1e30 : fabs(1 / raydir_y);
+		/* what dir to step in x or y-dir (either +1 or -1) */
+		int step_x;
+		int step_y;
+		/* was a wall hit?*/
+		int hit = 0;
+		/* which wall was hit?
+		if x-side is hit, side = 0, if y-side is hit, side = 1 */
+		int side;
+		/* initial dist. from player and step dir */
+		if (raydir_x < 0) {
+			step_x = -1;
+			initial_raydist_x = (p8->pos_x - map_x) * raydist_x;
+		}
+		else {
+			step = 1;
+			initial_raydist_x = (map_x + 1.0 - p8->pos_x) * raydist_x;
+		}
+		if (raydir_y < 0) {
+			step = -1;
+			initial_raydist_y = (p8->pos_y - map_y) * raydist_y;
+		}
+		else {
+			step = 1;
+			initial_raydist_y = (map_x + 1.0 - p8->pos_y) * raydist_y;
+		}
 	}
 }
