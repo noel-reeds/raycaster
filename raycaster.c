@@ -54,11 +54,10 @@ void start_cast_rays(void) {
 		double initial_raydist_x;
 		double initial_raydist_y;
 		/*length of ray from one x or y-side to next x or y-side */
-		double raydist_x = (raydir_x == 0) ? 1e30 : fabs(1 / raydir_x);
-		double raydist_y = (raydir_y == 0) ? 1e30 : fabs(1 / raydir_y);
+		double raydist_x = (raydir_x == 0) ? 1e30 : fabs(1.0 / raydir_x);
+		double raydist_y = (raydir_y == 0) ? 1e30 : fabs(1.0 / raydir_y);
 		/* what dir to step in x or y-dir (either +1 or -1) */
-		int step_x;
-		int step_y;
+		int step_x, step_y;
 		/* was a wall hit?*/
 		int hit = 0;
 		/* which wall was hit?
@@ -83,7 +82,7 @@ void start_cast_rays(void) {
 			step = 1;
 			initial_raydist_y = (map_x + 1.0 - p8->pos_y) * raydist_y;
 		}
-		while (hit == 0) {
+		while (!hit) {
 			/* jump to the next square either in x-dir or y-dir */
 			if (initial_raydist_x < initial_raydist_y) {
 				initial_raydist_x += raydist_x;
@@ -97,10 +96,10 @@ void start_cast_rays(void) {
 			}
 			if (map[map_x][map_y] > 0)
 				hit = 1;
-			if (side == 0)
-				pw_dist = initial_raydist_x - raydist_x;
-			else
-				pw_dist = initial_raydist_y - raydist_y;
 		}
+		if (side == 0) {
+			pw_dist = initial_raydist_x - raydist_x;
+		else
+			pw_dist = initial_raydist_y - raydist_y;
 	}
 }
