@@ -39,6 +39,11 @@ void start_cast_rays(void) {
 	/* camera plane coordinates */
 	camera_p->_x = 0;
 	camera_p->_y = 0.66;
+	/* det. the grid/square the ray is in the map */
+	int map_x = (int)p8->pos_x;
+	int map_y = (int)p8->pos_y;
+	/* if x-side is hit, side = 0, if y-side is hit, side = 1 */
+	int side;
 
 	/* game loop starts here.. */
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
@@ -47,9 +52,6 @@ void start_cast_rays(void) {
 		/* ray directions */
 		double raydir_x = p8->dir_x + camera_p->_x * camera_x;
 		double raydir_y = p8->dir_y + camera_p->_y * camera_x;
-		/* det. the grid/square the ray is in the map */
-		int map_x = (int)p8->pos_x;
-		int map_y = (int)p8->pos_y;
 		/* length of the ray from player pos to next x or y-side */
 		double initial_raydist_x;
 		double initial_raydist_y;
@@ -60,9 +62,6 @@ void start_cast_rays(void) {
 		int step_x, step_y;
 		/* was a wall hit?*/
 		int hit = 0;
-		/* which wall was hit?
-		if x-side is hit, side = 0, if y-side is hit, side = 1 */
-		int side;
 		/* perpendicular dist from camera plane to the wall */
 		double pw_dist;
 		/* initial dist. from player and step dir */
@@ -71,15 +70,15 @@ void start_cast_rays(void) {
 			initial_raydist_x = (p8->pos_x - map_x) * raydist_x;
 		}
 		else {
-			step = 1;
+			step_y = 1;
 			initial_raydist_x = (map_x + 1.0 - p8->pos_x) * raydist_x;
 		}
 		if (raydir_y < 0) {
-			step = -1;
+			step_x = -1;
 			initial_raydist_y = (p8->pos_y - map_y) * raydist_y;
 		}
 		else {
-			step = 1;
+			step_y = 1;
 			initial_raydist_y = (map_x + 1.0 - p8->pos_y) * raydist_y;
 		}
 		while (!hit) {
@@ -105,14 +104,14 @@ void start_cast_rays(void) {
 			pw_dist = initial_raydist_y - raydist_y;
 	}
 	/* calculate line of height to draw on screen */
-	int line_h = int(SCREEN_HEIGHT / pw_dist);
+	int line_h = (int)(SCREEN_HEIGHT / pw_dist);
 	/* finds highest and lowest pixel to fill in current stripe */
-	int draw_start = -line_h / 2 + h / 2;
+	int draw_start = -line_h / 2 + SCREEN_HEIGHT / 2;
 	if (draw_start < 0)
-		draw_start = 0
-	int draw_end = line_h / 2 + h / 2;
-	if (draw_end >= h)
-		draw_end = h - 1;
+		draw_start = 0;
+	int draw_end = line_h / 2 + SCREEN_HEIGHT / 2;
+	if (draw_end >= SCREEN_HEIGHT)
+		draw_end = SCREEN_HEIGHT - 1;
 	/* choose wall color */
 	SDL_Color clr;
 
@@ -127,13 +126,13 @@ void start_cast_rays(void) {
 		break;
 
 		case 4: clr{255, 255, 255};
-		break
+		break;
 
 		default: clr{255, 255, 0};
 	}
 	if (side == 1)
 		clr = clr / 2;
-	SDL_SetRenderDrawColor(context->renderer, clr.r, clr.g, clr.b, clr.a)
+	SDL_SetRenderDrawColor(context->renderer, clr.r, clr.g, clr.b, clr.a);
 	SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end, clr);
 
 }
