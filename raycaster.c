@@ -94,12 +94,46 @@ void start_cast_rays(void) {
 				map_y += raydist_y;
 				side = 1;
 			}
+			/* check if ray is inside a wall */
 			if (map[map_x][map_y] > 0)
 				hit = 1;
 		}
-		if (side == 0) {
+		/* finds shortest distance to the wall */
+		if (side == 0)
 			pw_dist = initial_raydist_x - raydist_x;
 		else
 			pw_dist = initial_raydist_y - raydist_y;
 	}
+	/* calculate line of height to draw on screen */
+	int line_h = int(SCREEN_HEIGHT / pw_dist);
+	/* finds highest and lowest pixel to fill in current stripe */
+	int draw_start = -line_h / 2 + h / 2;
+	if (draw_start < 0)
+		draw_start = 0
+	int draw_end = line_h / 2 + h / 2;
+	if (draw_end >= h)
+		draw_end = h - 1;
+	/* choose wall color */
+	SDL_Color clr;
+
+	switch(map[map_x][map_y]) {
+		case 1: clr{255, 0, 0};
+		break;
+
+		case 2: clr{0, 128, 0};
+		break;
+
+		case 3: clr{0, 0, 255};
+		break;
+
+		case 4: clr{255, 255, 255};
+		break
+
+		default: clr{255, 255, 0};
+	}
+	if (side == 1)
+		clr = clr / 2;
+	SDL_SetRenderDrawColor(context->renderer, clr.r, clr.g, clr.b, clr.a)
+	SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end, clr);
+
 }
