@@ -20,6 +20,7 @@ typedef struct {
 } SDL_Context;
 
 extern SDL_Context *context;
+extern int map[MAP_WIDTH][MAP_HEIGHT];
 
 /* Function defs */
 bool create_game_window(void);
