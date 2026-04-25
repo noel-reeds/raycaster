@@ -5,6 +5,8 @@ Plane *camera_p;
 
 int main(int argc, char *argv[])
 {
+	(void)argc;
+	(void)argv;
 	/* create game window */
 	if (!create_game_window()) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "FAILED: %s",
@@ -44,6 +46,10 @@ void start_cast_rays(void) {
 	int map_y = (int)p8->pos_y;
 	/* if x-side is hit, side = 0, if y-side is hit, side = 1 */
 	int side;
+	/* perpendicular dist from camera plane to the wall */
+	double pw_dist;
+	/* maps camera plane to determine ray directions */
+	
 
 	/* game loop starts here.. */
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
@@ -62,9 +68,6 @@ void start_cast_rays(void) {
 		int step_x, step_y;
 		/* was a wall hit?*/
 		int hit = 0;
-		/* perpendicular dist from camera plane to the wall */
-		double pw_dist;
-		/* initial dist. from player and step dir */
 		if (raydir_x < 0) {
 			step_x = -1;
 			initial_raydist_x = (p8->pos_x - map_x) * raydist_x;
@@ -113,26 +116,26 @@ void start_cast_rays(void) {
 	if (draw_end >= SCREEN_HEIGHT)
 		draw_end = SCREEN_HEIGHT - 1;
 	/* choose wall color */
-	SDL_Color clr;
+	SDL_Color color;
 
 	switch(map[map_x][map_y]) {
-		case 1: clr{255, 0, 0};
+		case 1: color = { .r = 255, .g = 0, .b = 0 };
 		break;
 
-		case 2: clr{0, 128, 0};
+		case 2: color = { .r = 0, .g = 128, .b = 0 };
 		break;
 
-		case 3: clr{0, 0, 255};
+		case 3: color = { .r = 0, .g = 0, .b = 255 };
 		break;
 
-		case 4: clr{255, 255, 255};
+		case 4: color = { .r = 255, .g = 255, .b = 255 };
 		break;
 
-		default: clr{255, 255, 0};
+		default: color = { .r = 255, .g = 255, .b = 0 };
 	}
 	if (side == 1)
-		clr = clr / 2;
-	SDL_SetRenderDrawColor(context->renderer, clr.r, clr.g, clr.b, clr.a);
-	SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end, clr);
-
+		//not-implemented.
+	SDL_SetRenderDrawColor(context->renderer,
+							color.r, color.g, color.b, color.a);
+	SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end);
 }
