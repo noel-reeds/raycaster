@@ -32,42 +32,24 @@ int main(int argc, char *argv[])
 }
 
 void start_cast_rays(void) {
-	/* player start positions coordinates */
 	p8->pos_x = 22;
 	p8->pos_y = 12;
-	/* player direction coordinates */
 	p8->dir_x = -1;
 	p8->dir_y = 0;
-	/* camera plane coordinates */
 	camera_p->_x = 0;
 	camera_p->_y = 0.66;
-	/* det. the grid/square the ray is in the map */
-	int map_x = (int)p8->pos_x;
-	int map_y = (int)p8->pos_y;
-	/* if x-side is hit, side = 0, if y-side is hit, side = 1 */
-	int side;
-	/* perpendicular dist from camera plane to the wall */
-	double pw_dist;
-	/* maps camera plane to determine ray directions */
-	
+	map_x = (int)p8->pos_x;
+	map_y = (int)p8->pos_y;
+	hit = 0;
 
 	/* game loop starts here.. */
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
-		/* maps camera plane to determine ray directions */
-		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		/* ray directions */
-		double raydir_x = p8->dir_x + camera_p->_x * camera_x;
-		double raydir_y = p8->dir_y + camera_p->_y * camera_x;
-		/* length of the ray from player pos to next x or y-side */
-		double initial_raydist_x;
-		double initial_raydist_y;
-		/*length of ray from one x or y-side to next x or y-side */
-		double raydist_x = (raydir_x == 0) ? 1e30 : fabs(1.0 / raydir_x);
-		double raydist_y = (raydir_y == 0) ? 1e30 : fabs(1.0 / raydir_y);
-		/* what dir to step in x or y-dir (either +1 or -1) */
-		int step_x, step_y;
-		/* was a wall hit?*/
-		int hit = 0;
+		camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+		raydir_x = p8->dir_x + camera_p->_x * camera_x;
+		raydir_y = p8->dir_y + camera_p->_y * camera_x;
+		raydist_x = (raydir_x == 0) ? 1e30 : fabs(1.0 / raydir_x);
+		raydist_y = (raydir_y == 0) ? 1e30 : fabs(1.0 / raydir_y);
+
 		if (raydir_x < 0) {
 			step_x = -1;
 			initial_raydist_x = (p8->pos_x - map_x) * raydist_x;
@@ -93,7 +75,7 @@ void start_cast_rays(void) {
 			}
 			else {
 				initial_raydist_y += raydist_y;
-				map_y += raydist_y;
+				map_y += step_y;
 				side = 1;
 			}
 			/* check if ray is inside a wall */
@@ -105,37 +87,37 @@ void start_cast_rays(void) {
 			pw_dist = initial_raydist_x - raydist_x;
 		else
 			pw_dist = initial_raydist_y - raydist_y;
+		/* calculate line height to draw on screen */
+		int line_h = (int)(SCREEN_HEIGHT / pw_dist);
+		/* finds highest and lowest pixel to fill in current stripe */
+		int draw_start = -line_h / 2 + SCREEN_HEIGHT / 2;
+		if (draw_start < 0)
+			draw_start = 0;
+		int draw_end = line_h / 2 + SCREEN_HEIGHT / 2;
+		if (draw_end >= SCREEN_HEIGHT)
+			draw_end = SCREEN_HEIGHT - 1;
+		/* choose wall color */
+		SDL_Color color;
+
+		switch(map[map_x][map_y]) {
+			case 1: color = (SDL_Color){ .r = 255, .g = 0, .b = 0 };
+			break;
+
+			case 2: color = (SDL_Color){ .r = 0, .g = 128, .b = 0 };
+			break;
+
+			case 3: color = (SDL_Color){ .r = 0, .g = 0, .b = 255 };
+			break;
+
+			case 4: color = (SDL_Color){ .r = 255, .g = 255, .b = 255 };
+			break;
+
+			default: color = (SDL_Color){ .r = 255, .g = 255, .b = 0 };
+		}
+		if (side == 1)
+			//not-implemented.
+		SDL_SetRenderDrawColor(context->renderer,
+								color.r, color.g, color.b, color.a);
+		SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end);
 	}
-	/* calculate line of height to draw on screen */
-	int line_h = (int)(SCREEN_HEIGHT / pw_dist);
-	/* finds highest and lowest pixel to fill in current stripe */
-	int draw_start = -line_h / 2 + SCREEN_HEIGHT / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	int draw_end = line_h / 2 + SCREEN_HEIGHT / 2;
-	if (draw_end >= SCREEN_HEIGHT)
-		draw_end = SCREEN_HEIGHT - 1;
-	/* choose wall color */
-	SDL_Color color;
-
-	switch(map[map_x][map_y]) {
-		case 1: color = { .r = 255, .g = 0, .b = 0 };
-		break;
-
-		case 2: color = { .r = 0, .g = 128, .b = 0 };
-		break;
-
-		case 3: color = { .r = 0, .g = 0, .b = 255 };
-		break;
-
-		case 4: color = { .r = 255, .g = 255, .b = 255 };
-		break;
-
-		default: color = { .r = 255, .g = 255, .b = 0 };
-	}
-	if (side == 1)
-		//not-implemented.
-	SDL_SetRenderDrawColor(context->renderer,
-							color.r, color.g, color.b, color.a);
-	SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end);
 }
