@@ -1,4 +1,8 @@
 #include "main.h"
+#include "player.h"
+int map_x, map_y, step_x, step_y, side, hit;
+double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
+double initial_raydist_x, initial_raydist_y, raydist_y;
 
 /* world map arr. */
 int map[MAP_WIDTH][MAP_HEIGHT] = {
