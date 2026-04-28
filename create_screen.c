@@ -5,7 +5,7 @@ bool create_game_window(void)
 {
 	bool window = true;
 
-	if (SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR,
 			"Failed to initialize SDL!: %s", SDL_GetError());
 		window = false;
@@ -13,8 +13,7 @@ bool create_game_window(void)
 	else {
 		context->screen = SDL_CreateWindow("raycaster",
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			SCREEN_WIDTH, SCREEN_HEIGHT,
-			SDL_WINDOW_SHOWN);
+			SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	}
 	if (!context->screen) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR,

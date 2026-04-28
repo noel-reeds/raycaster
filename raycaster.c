@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
 	(void)argc;
 	(void)argv;
 	/* create game window */
+	context = malloc(sizeof(SDL_Context));
 	if (!create_game_window()) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "FAILED: %s",
 			SDL_GetError());
