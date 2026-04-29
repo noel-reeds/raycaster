@@ -37,5 +37,7 @@ extern int step_x, step_y, hit;
 
 /* Player function defs */
 void start_cast_rays(void);
+void init_var(void);
+void draw_player(void);
 
 #endif
