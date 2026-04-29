@@ -19,11 +19,11 @@ typedef struct {
 	SDL_Renderer *renderer;
 } SDL_Context;
 
-extern SDL_Context *context;
+extern SDL_Context *ctx;
 extern int map[MAP_WIDTH][MAP_HEIGHT];
 
 /* Function defs */
 bool create_game_window(void);
-void draw_world_map(void);
-
+void draw_player_map(void);
+ void free_allocated_mem(void);
 #endif
