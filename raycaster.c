@@ -7,13 +7,14 @@ int main(int argc, char *argv[])
 {
 	(void)argc;
 	(void)argv;
-	/* set up player variables */
-	init_var();
-	/* create game window */
+
 	ctx = malloc(sizeof(SDL_Context));
 	p8 = malloc(sizeof(Player));
 	camera_p = malloc(sizeof(Plane));
 
+	/* sets player positions */
+	init_var();
+	/* sets up an SDL2 window */
 	if (!create_game_window()) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "FAILED: %s",
 			SDL_GetError());
@@ -28,13 +29,8 @@ int main(int argc, char *argv[])
 				if (event_e.type == SDL_QUIT)
 					quit = true;
 			}
-			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
-			SDL_RenderClear(ctx->renderer);
+			draw_player();
 			SDL_RenderPresent(ctx->renderer);
-			//draw_player_map();
-			//SDL_RenderClear(ctx->renderer);
-			//SDL_RenderPresent(ctx->renderer);
-
 		}
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
 			"Event queue is empty!");
