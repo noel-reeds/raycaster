@@ -40,18 +40,22 @@ void draw_player_map(void)
 	{
 		for (y = 0; y < MAP_HEIGHT; y++)
 		{
-			if (map[x][y] > 0)
+			if (map[x][y] > 0) {
+				SDL_RenderClear(ctx->renderer);
 				SDL_SetRenderDrawColor(ctx->renderer, 128, 192, 255, 255);
-			else
+			}
+			else {
+				SDL_RenderClear(ctx->renderer);
 				SDL_SetRenderDrawColor(ctx->renderer, 0, 0, 0, 100);
+			}
 			SDL_RenderFillRect(ctx->renderer, &sq);
 		}
 	}
 }
 
-void draw_player() {
-	SDL_SetRenderDrawColor(ctx->renderer, 245, 235, 39);
-
+void draw_player(void) {
+	SDL_SetRenderDrawColor(ctx->renderer, 0xF5, 0xEB, 0x27, 0xFF);
+	SDL_RenderDrawPoint(ctx->renderer, p8->pos_x, p8->pos_y);
 }
 
 void init_var(void) {
