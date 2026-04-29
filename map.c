@@ -54,8 +54,9 @@ void draw_player_map(void)
 }
 
 void draw_player(void) {
+	SDL_Rect player8 = {p8->pos_x, p8->pos_y, 10, 10 };
 	SDL_SetRenderDrawColor(ctx->renderer, 0xF5, 0xEB, 0x27, 0xFF);
-	SDL_RenderDrawPoint(ctx->renderer, p8->pos_x, p8->pos_y);
+	SDL_RenderFillRect(ctx->renderer, &player8);
 }
 
 void init_var(void) {
