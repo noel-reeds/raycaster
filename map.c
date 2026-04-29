@@ -32,6 +32,36 @@ int map[MAP_WIDTH][MAP_HEIGHT] = {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void draw_world_map(void) {
-	return;
+void draw_player_map(void)
+{
+	int x, y;
+	SDL_Rect sq = {map_x, map_y, 64, 64};
+	for (x = 0; x < MAP_WIDTH; x++)
+	{
+		for (y = 0; y < MAP_HEIGHT; y++)
+		{
+			if (map[x][y] > 0)
+				SDL_SetRenderDrawColor(ctx->renderer, 128, 192, 255, 255);
+			else
+				SDL_SetRenderDrawColor(ctx->renderer, 0, 0, 0, 100);
+			SDL_RenderFillRect(ctx->renderer, &sq);
+		}
+	}
+}
+
+void draw_player() {
+	SDL_SetRenderDrawColor(ctx->renderer, 245, 235, 39);
+
+}
+
+void init_var(void) {
+	p8->pos_x = 22;
+	p8->pos_y = 12;
+	p8->dir_x = -1;
+	p8->dir_y = 0;
+	camera_p->_x = 0;
+	camera_p->_y = 0.66;
+	map_x = (int)p8->pos_x;
+	map_y = (int)p8->pos_y;
+	hit = 0;
 }

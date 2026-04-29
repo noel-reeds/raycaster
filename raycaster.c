@@ -7,8 +7,13 @@ int main(int argc, char *argv[])
 {
 	(void)argc;
 	(void)argv;
+	/* set up player variables */
+	init_var();
 	/* create game window */
-	context = malloc(sizeof(SDL_Context));
+	ctx = malloc(sizeof(SDL_Context));
+	p8 = malloc(sizeof(Player));
+	camera_p = malloc(sizeof(Plane));
+
 	if (!create_game_window()) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "FAILED: %s",
 			SDL_GetError());
@@ -23,26 +28,21 @@ int main(int argc, char *argv[])
 				if (event_e.type == SDL_QUIT)
 					quit = true;
 			}
-			SDL_SetRenderDrawColor(context->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
-			SDL_RenderClear(context->renderer);
-			SDL_RenderPresent(context->renderer);
+			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
+			SDL_RenderClear(ctx->renderer);
+			SDL_RenderPresent(ctx->renderer);
+			//draw_player_map();
+			//SDL_RenderClear(ctx->renderer);
+			//SDL_RenderPresent(ctx->renderer);
+
 		}
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
 			"Event queue is empty!");
+		free_allocated_mem();
 	}
 }
 
 void start_cast_rays(void) {
-	p8->pos_x = 22;
-	p8->pos_y = 12;
-	p8->dir_x = -1;
-	p8->dir_y = 0;
-	camera_p->_x = 0;
-	camera_p->_y = 0.66;
-	map_x = (int)p8->pos_x;
-	map_y = (int)p8->pos_y;
-	hit = 0;
-
 	/* game loop starts here.. */
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
 		camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
@@ -116,9 +116,9 @@ void start_cast_rays(void) {
 			default: color = (SDL_Color){ .r = 255, .g = 255, .b = 0 };
 		}
 		if (side == 1)
-			//not-implemented.
-		SDL_SetRenderDrawColor(context->renderer,
+			//not-implemented yet.
+		SDL_SetRenderDrawColor(ctx->renderer,
 								color.r, color.g, color.b, color.a);
-		SDL_RenderDrawLine(context->renderer, x, draw_start, x, draw_end);
+		SDL_RenderDrawLine(ctx->renderer, x, draw_start, x, draw_end);
 	}
 }
