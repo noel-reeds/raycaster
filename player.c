@@ -1,5 +1,6 @@
 #include "main.h"
 #include "player.h"
+
 int map_x, map_y, step_x, step_y, side, hit;
 double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
 double initial_raydist_x, initial_raydist_y, raydist_y;
@@ -54,7 +55,7 @@ void draw_player_map(void)
 }
 
 void draw_player(void) {
-	SDL_Rect player8 = {p8->pos_x, p8->pos_y, 10, 10 };
+	SDL_Rect player8 = { p8->pos_x, p8->pos_y, 10, 10 };
 	SDL_SetRenderDrawColor(ctx->renderer, 0xF5, 0xEB, 0x27, 0xFF);
 	SDL_RenderFillRect(ctx->renderer, &player8);
 }
@@ -70,3 +71,4 @@ void init_var(void) {
 	map_y = (int)p8->pos_y;
 	hit = 0;
 }
+

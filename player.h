@@ -1,6 +1,8 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
+#include "main.h"
+
 /* Player structs and coordinates */
 typedef struct {
 	double pos_x, pos_y;
