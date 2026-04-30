@@ -11,7 +11,12 @@
 #include <stdbool.h>
 #include <SDL_image.h>
 #include "SDL_ttf.h"
+#include "SDL_keyboard.h"
+#include "SDL_scancode.h"
+#include <stdint.h>
+#include <inttypes.h>
 #include <math.h>
+#include <stdlib.h>
 
 /* Window or screen variables */
 typedef struct {
@@ -25,5 +30,6 @@ extern int map[MAP_WIDTH][MAP_HEIGHT];
 /* Function defs */
 bool create_game_window(void);
 void draw_player_map(void);
- void free_allocated_mem(void);
+void free_allocated_mem(void);
+
 #endif

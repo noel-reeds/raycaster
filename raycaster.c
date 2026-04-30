@@ -1,5 +1,6 @@
 #include "main.h"
 #include "player.h"
+
 Player *p8;
 Plane *camera_p;
 
@@ -20,17 +21,31 @@ int main(int argc, char *argv[])
 			SDL_GetError());
 	}
 	else {
-		bool quit = false;
+		bool gameover = false;
 		SDL_Event event_e;
+		const Uint8 *key_state = SDL_GetKeyboardState(NULL);
 
-		while (!quit)
+		if (!key_state) {
+			SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Something went wrong!");
+			exit(1);
+		}
+		
+		while (!gameover)
 		{
 			while (SDL_PollEvent(&event_e) != 0) {
 				if (event_e.type == SDL_QUIT)
-					quit = true;
+					gameover = true;
 			}
 			draw_player();
 			SDL_RenderPresent(ctx->renderer);
+			if (key_state[SDL_SCANCODE_J])
+				p8->pos_x += 2;
+			if (key_state[SDL_SCANCODE_B])
+				p8->pos_y += 2;
+			if (key_state[SDL_SCANCODE_Y])
+				p8->pos_y -= 2;
+			if (key_state[SDL_SCANCODE_F])
+				p8->pos_x -= 2;
 		}
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
 			"Event queue is empty!");
