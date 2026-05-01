@@ -7,7 +7,7 @@
 typedef struct {
 	double pos_x, pos_y;
 	double dir_x, dir_y;
-	double pos_a;
+	double pw;
 } Player;
 
 /* Camera plane  coordinates */
@@ -41,5 +41,6 @@ extern int step_x, step_y, hit;
 void start_cast_rays(void);
 void init_var(void);
 void draw_player(void);
+void move_player(const Uint8 *keystates, double pos_x, double pos_y);
 
 #endif
