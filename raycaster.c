@@ -40,12 +40,14 @@ int main(int argc, char *argv[])
 			SDL_RenderPresent(ctx->renderer);
 			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
 			SDL_RenderClear(ctx->renderer);
-			if (key_state[SDL_SCANCODE_J] && p8->pos_x < SCREEN_WIDTH)
+			if (key_state[SDL_SCANCODE_J] && p8->pos_x < SCREEN_WIDTH - p8->pw)
 				p8->pos_x += 2;
-			else if (p8->pos_x > SCREEN_WIDTH)
-				p8->pos_x = SCREEN_WIDTH;
-			if (key_state[SDL_SCANCODE_B])
+			else if (p8->pos_x > SCREEN_WIDTH - p8->pw)
+				p8->pos_x = SCREEN_WIDTH - p8->pw;
+			if (key_state[SDL_SCANCODE_B] && p8->pos_y < SCREEN_HEIGHT - p8->pw)
 				p8->pos_y += 2;
+			else if (p8->pos_y > SCREEN_HEIGHT - p8->pw)
+				p8->pos_y = SCREEN_HEIGHT - p8->pw;
 			if (key_state[SDL_SCANCODE_Y] && p8->pos_y > 0)
 				p8->pos_y -= 2;
 			else if (p8->pos_y < 0)
@@ -55,8 +57,8 @@ int main(int argc, char *argv[])
 			else if (p8->pos_x < 0)
 				p8->pos_x = 0;
 		}
-		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION,
-			"Event queue is empty!");
+		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, 
+								"Event queue is empty!");
 		free_allocated_mem();
 	}
 }
