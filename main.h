@@ -3,7 +3,7 @@
 
 #define MAP_WIDTH 24
 #define MAP_HEIGHT 24
-#define SCREEN_WIDTH 640
+#define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 480
 
 /* SDL & std headers */
@@ -17,6 +17,9 @@
 #include <inttypes.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+extern int map[MAP_WIDTH][MAP_HEIGHT];
 
 /* Window or screen variables */
 typedef struct {
@@ -29,7 +32,7 @@ extern int map[MAP_WIDTH][MAP_HEIGHT];
 
 /* Function defs */
 bool create_game_window(void);
-void draw_player_map(void);
+void draw_player_map(SDL_Renderer *renderer);
 void free_allocated_mem(void);
 
 #endif
