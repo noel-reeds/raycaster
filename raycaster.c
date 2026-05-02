@@ -36,7 +36,10 @@ int main(int argc, char *argv[])
 				if (event_e.type == SDL_QUIT)
 					gameover = true;
 			}
-			draw_player();
+			/* draw the player map */
+			draw_player_map(ctx->renderer);
+			/* draw the player */
+			draw_player(ctx->renderer);
 			SDL_RenderPresent(ctx->renderer);
 			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
 			SDL_RenderClear(ctx->renderer);
