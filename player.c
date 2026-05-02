@@ -33,31 +33,32 @@ int map[MAP_WIDTH][MAP_HEIGHT] = {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void draw_player_map(void)
+void draw_player_map(SDL_Renderer *rdr)
 {
-	int x, y;
-	SDL_Rect sq = {map_x, map_y, 64, 64};
+	int x=0, y=0, m_x=64;
+	SDL_Rect sq = { x, y, m_x, m_x};
+
 	for (x = 0; x < MAP_WIDTH; x++)
 	{
+		sq.x = x * m_x;
 		for (y = 0; y < MAP_HEIGHT; y++)
 		{
+			sq.y = y * m_x;
 			if (map[x][y] > 0) {
-				SDL_RenderClear(ctx->renderer);
-				SDL_SetRenderDrawColor(ctx->renderer, 128, 192, 255, 255);
+				SDL_SetRenderDrawColor(rdr, 128, 192, 255, 255);
 			}
 			else {
-				SDL_RenderClear(ctx->renderer);
-				SDL_SetRenderDrawColor(ctx->renderer, 0, 0, 0, 100);
+				SDL_SetRenderDrawColor(rdr, 0, 0, 0, 100);
 			}
-			SDL_RenderFillRect(ctx->renderer, &sq);
+			SDL_RenderFillRect(rdr, &sq);
 		}
 	}
 }
 
-void draw_player(void) {
+void draw_player(SDL_Renderer *rdr) {
 	SDL_Rect player8 = { p8->pos_x, p8->pos_y, p8->pw, p8->pw };
-	SDL_SetRenderDrawColor(ctx->renderer, 0xF5, 0xEB, 0x27, 0xFF);
-	SDL_RenderFillRect(ctx->renderer, &player8);
+	SDL_SetRenderDrawColor(rdr, 0xF5, 0xEB, 0x27, 0xFF);
+	SDL_RenderFillRect(rdr, &player8);
 }
 
 void init_var(void) {
