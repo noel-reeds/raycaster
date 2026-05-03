@@ -44,19 +44,19 @@ int main(int argc, char *argv[])
 			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
 			SDL_RenderClear(ctx->renderer);
 			// move_player(key_state, p8->pos_x, p8->pos_y);
-			if (key_state[SDL_SCANCODE_J] && p8->pos_x < SCREEN_WIDTH - p8->pw)
+			if (key_state[SDL_SCANCODE_D] && p8->pos_x < SCREEN_WIDTH - p8->pw)
 				p8->pos_x += 2;
 			else if (p8->pos_x > SCREEN_WIDTH - p8->pw)
 				p8->pos_x = SCREEN_WIDTH - p8->pw;
-			if (key_state[SDL_SCANCODE_B] && p8->pos_y < SCREEN_HEIGHT - p8->pw)
+			if (key_state[SDL_SCANCODE_S] && p8->pos_y < SCREEN_HEIGHT - p8->pw)
 				p8->pos_y += 2;
 			else if (p8->pos_y > SCREEN_HEIGHT - p8->pw)
 				p8->pos_y = SCREEN_HEIGHT - p8->pw;
-			if (key_state[SDL_SCANCODE_Y] && p8->pos_y > 0)
+			if (key_state[SDL_SCANCODE_W] && p8->pos_y > 0)
 				p8->pos_y -= 2;
 			else if (p8->pos_y < 0)
 				p8->pos_y = 0;
-			if (key_state[SDL_SCANCODE_F] && p8->pos_x > 0)
+			if (key_state[SDL_SCANCODE_A] && p8->pos_x > 0)
 				p8->pos_x -= 2;
 			else if (p8->pos_x < 0)
 				p8->pos_x = 0;
