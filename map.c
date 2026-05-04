@@ -28,3 +28,25 @@ int map[MAP_WIDTH][MAP_HEIGHT] = {
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
+
+void draw_player_map(SDL_Renderer *rdr)
+{
+    int x=0, y=0, m_x=20;
+    SDL_Rect sq = { x, y, m_x, m_x};
+
+    for (x = 0; x < MAP_WIDTH; x++)
+    {
+        sq.x = x * m_x;
+        for (y = 0; y < MAP_HEIGHT; y++)
+        {
+            sq.y = y * m_x;
+            if (map[x][y] > 0) {
+                SDL_SetRenderDrawColor(rdr, 128, 192, 255, 255);
+            }
+            else {
+                SDL_SetRenderDrawColor(rdr, 0, 0, 0, 100);
+            }
+            SDL_RenderFillRect(rdr, &sq);
+        }
+    }
+}

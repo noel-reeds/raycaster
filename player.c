@@ -5,28 +5,6 @@ int map_x, map_y, step_x, step_y, side, hit;
 double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
 double initial_raydist_x, initial_raydist_y, raydist_y;
 
-void draw_player_map(SDL_Renderer *rdr)
-{
-	int x=0, y=0, m_x=20;
-	SDL_Rect sq = { x, y, m_x, m_x};
-
-	for (x = 0; x < MAP_WIDTH; x++)
-	{
-		sq.x = x * m_x;
-		for (y = 0; y < MAP_HEIGHT; y++)
-		{
-			sq.y = y * m_x;
-			if (map[x][y] > 0) {
-				SDL_SetRenderDrawColor(rdr, 128, 192, 255, 255);
-			}
-			else {
-				SDL_SetRenderDrawColor(rdr, 0, 0, 0, 100);
-			}
-			SDL_RenderFillRect(rdr, &sq);
-		}
-	}
-}
-
 void draw_player(SDL_Renderer *rdr) {
 	SDL_Rect player8 = { p8->pos_x, p8->pos_y, p8->pw, p8->pw };
 	SDL_SetRenderDrawColor(rdr, 0xF5, 0xEB, 0x27, 0xFF);
