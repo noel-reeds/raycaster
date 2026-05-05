@@ -24,21 +24,27 @@ void init_var(void) {
 	hit = 0;
 }
 
-void move_player(const Uint8 *keystates, double pos_x, double pos_y) {
-	if (keystates[SDL_SCANCODE_J] && pos_x < SCREEN_WIDTH - p8->pw)
-		pos_x += 2;
-	else if (p8->pos_x > SCREEN_WIDTH - pos_x)
-		pos_x = SCREEN_WIDTH;
-	if (keystates[SDL_SCANCODE_B] && pos_y < SCREEN_HEIGHT - p8->pw)
-		pos_y += 2;
-	else if (pos_y > SCREEN_HEIGHT - p8->pw)
-		pos_y = SCREEN_HEIGHT - p8->pw;
-	if (keystates[SDL_SCANCODE_Y] && pos_y > 0)
-		pos_y -= 2;
-	else if (pos_y < 0)
-		pos_y = 0;
-	if (keystates[SDL_SCANCODE_F] && pos_x > 0)
-		pos_x -= 2;
-	else if (p8->pos_x < 0)
-		pos_x = 0;
+void move_player(SDL_Event event_e)
+{
+	if (event_e.type == SDL_KEYDOWN)
+	{
+		switch(event_e.key.keysym.sym)
+		{
+			case SDLK_w:
+			p8->pos_y -= 2;
+			break;
+
+			case SDLK_s:
+			p8->pos_y += 2;
+			break;
+
+			case SDLK_d:
+			p8->pos_x += 2;
+			break;
+
+			case SDLK_a:
+			p8->pos_x -= 2;
+			break;
+		}
+	}
 }
