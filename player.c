@@ -47,6 +47,27 @@ void move_player(SDL_Event event_e)
 			break;
 		}
 	}
+	if (event_e.type == SDL_KEYUP)
+	{
+		switch(event_e.key.keysym.sym)
+		{
+			case SDLK_w:
+			p8->pos_y -= 2;
+			break;
+
+			case SDLK_s:
+			p8->pos_y += 2;
+			break;
+
+			case SDLK_d:
+			p8->pos_x += 2;
+			break;
+
+			case SDLK_a:
+			p8->pos_x -= 2;
+			break;
+		}
+	}
 	if (p8->pos_x > SCREEN_WIDTH - p8->pw)
         p8->pos_x = SCREEN_WIDTH - p8->pw;
     if (p8->pos_y > SCREEN_HEIGHT - p8->pw)
