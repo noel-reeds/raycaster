@@ -47,4 +47,12 @@ void move_player(SDL_Event event_e)
 			break;
 		}
 	}
+	if (p8->pos_x > SCREEN_WIDTH - p8->pw)
+        p8->pos_x = SCREEN_WIDTH - p8->pw;
+    if (p8->pos_y > SCREEN_HEIGHT - p8->pw)
+        p8->pos_y = SCREEN_HEIGHT - p8->pw;
+    if (p8->pos_y < 0)
+        p8->pos_y = 0;
+    if (p8->pos_x < 0)
+        p8->pos_x = 0;
 }
