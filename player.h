@@ -41,6 +41,6 @@ extern int step_x, step_y, hit;
 void start_cast_rays(void);
 void init_var(void);
 void draw_player(SDL_Renderer *renderer);
-void move_player(const Uint8 *keystates, double pos_x, double pos_y);
+void move_player(SDL_Event e);
 
 #endif
