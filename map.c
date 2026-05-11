@@ -42,10 +42,10 @@ void draw_player_map(Player *self, SDL_Renderer *rdr)
         {
             sq.y = y * m_x;
             if (map[x][y] > 0) {
-                SDL_SetRenderDrawColor(rdr, 128, 192, 255, 255);
+                SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
             }
             else {
-                SDL_SetRenderDrawColor(rdr, 0, 0, 0, 100);
+                SDL_SetRenderDrawColor(rdr, 255, 255, 255, 255);
             }
             SDL_RenderFillRect(rdr, &sq);
         }
