@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	custom_texture = malloc(sizeof(_Texture));
 	camera_p = malloc(sizeof(Plane));
 
-	init_var(&p8);
+	init_player_vars(&p8);
 
 	if (!create_game_window()) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "FAILED: %s",
@@ -22,13 +22,7 @@ int main(int argc, char *argv[])
 	else {
 		bool gameover = false;
 		SDL_Event event_e;
-		const Uint8 *key_state = SDL_GetKeyboardState(NULL);
 
-		if (!key_state) {
-			SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Something went wrong!");
-			exit(1);
-		}
-		
 		while (!gameover)
 		{
 			while (SDL_PollEvent(&event_e) != 0)
@@ -40,6 +34,7 @@ int main(int argc, char *argv[])
 			draw_player_map(&p8, ctx->renderer);
 			render_player(ctx->renderer, custom_texture,
 					p8.pos_x, p8.pos_y, NULL, 0.0, NULL, SDL_FLIP_NONE);
+			move_player(&p8);
 			SDL_RenderPresent(ctx->renderer);
 		}
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, 
