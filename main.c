@@ -7,13 +7,17 @@ int main(int argc, char *argv[])
 	(void)argv;
 
 	ctx = malloc(sizeof(SDL_Context));
-	p8 = malloc(sizeof(Player));
+	custom_texture = malloc(sizeof(_Texture));
 	camera_p = malloc(sizeof(Plane));
-	init_var();
+
+	init_var(&p8);
 
 	if (!create_game_window()) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "FAILED: %s",
 			SDL_GetError());
+	}
+	if(!loads_player_texture(&p8, ctx->renderer)) {
+		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Couldn't load player!");
 	}
 	else {
 		bool gameover = false;
@@ -31,13 +35,14 @@ int main(int argc, char *argv[])
 			{
 				if (event_e.type == SDL_QUIT)
 					gameover = true;
-				move_player(event_e);
+				handle_keyboard_event(&p8, event_e);
 			}
-			draw_player_map(ctx->renderer);
-			draw_player(ctx->renderer);
+			draw_player_map(&p8, ctx->renderer);
+			//SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
+			//SDL_RenderClear(ctx->renderer);
+			render_player(ctx->renderer, custom_texture,
+					p8.pos_x, p8.pos_y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 			SDL_RenderPresent(ctx->renderer);
-			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
-			SDL_RenderClear(ctx->renderer);
 		}
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, 
 								"Event queue is empty!");
