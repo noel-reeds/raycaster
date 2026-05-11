@@ -8,10 +8,12 @@ double initial_raydist_x, initial_raydist_y, raydist_y;
 void init_var(Player *self) {
 	self->pos_x = 45;
 	self->pos_y = 40;
+	self->pveloc = 10;
+	self->pw = 10;
+
 	self->dir_x = -1;
 	self->dir_y = 0;
-	self->pw = 10;
-	self->pveloc = 10;
+
 	camera_p->_x = 0;
 	camera_p->_y = 0.66;
 	map_x = (int)self->pos_x;
@@ -28,4 +30,8 @@ bool loads_player_texture(Player *self, SDL_Renderer *rdr) {
 		return false;
 	}
 	return true;
+}
+
+void move_player(Player *self) {
+
 }
