@@ -7,7 +7,8 @@
 typedef struct {
 	double pos_x, pos_y, pveloc;
 	double dir_x, dir_y;
-	double pw;
+	double vel_x, vel_y;
+	double p_size;
 } Player;
 
 /* Camera plane  coordinates */
@@ -39,13 +40,13 @@ extern int step_x, step_y, hit;
 
 /* Player function defs */
 void start_cast_rays(Player *self);
-void init_var(Player *self);
+void init_player_vars(Player *self);
 void draw_player(Player *self, SDL_Renderer *renderer);
 void handle_keyboard_event(Player *self, SDL_Event e);
 void render_player(SDL_Renderer *rndr, _Texture *custom_texture, int player_posx, int player_posy, SDL_Rect *clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 bool loads_player_texture(Player *self, SDL_Renderer *rdr);
 void draw_player_map(Player *self, SDL_Renderer *rdr);
-
+void move_player(Player *self);
 
 
 
