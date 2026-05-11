@@ -38,8 +38,6 @@ int main(int argc, char *argv[])
 				handle_keyboard_event(&p8, event_e);
 			}
 			draw_player_map(&p8, ctx->renderer);
-			//SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
-			//SDL_RenderClear(ctx->renderer);
 			render_player(ctx->renderer, custom_texture,
 					p8.pos_x, p8.pos_y, NULL, 0.0, NULL, SDL_FLIP_NONE);
 			SDL_RenderPresent(ctx->renderer);
