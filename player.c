@@ -5,11 +5,14 @@ int map_x, map_y, step_x, step_y, side, hit;
 double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
 double initial_raydist_x, initial_raydist_y, raydist_y;
 
-void init_var(Player *self) {
+void init_player_vars(Player *self) {
 	self->pos_x = 45;
-	self->pos_y = 40;
+	self->pos_y = 45;
 	self->pveloc = 10;
-	self->pw = 10;
+	self->p_size = 15;
+	
+	self->vel_x = 0;
+	self->vel_y = 0;
 
 	self->dir_x = -1;
 	self->dir_y = 0;
@@ -33,5 +36,13 @@ bool loads_player_texture(Player *self, SDL_Renderer *rdr) {
 }
 
 void move_player(Player *self) {
+	self->pos_x += self->vel_x;
+	if (self->pos_x < 0 || self->pos_x + self->p_size > SCREEN_WIDTH) {
+		self->pos_x -= self->vel_x;
+	}
 
+	self->pos_y += self->vel_y;
+	if (self->pos_y < 0 || self->pos_y + self->p_size > SCREEN_HEIGHT) {
+		self->pos_y -= self->vel_y;
+	}
 }
