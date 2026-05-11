@@ -5,75 +5,27 @@ int map_x, map_y, step_x, step_y, side, hit;
 double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
 double initial_raydist_x, initial_raydist_y, raydist_y;
 
-void draw_player(SDL_Renderer *rdr) {
-	SDL_Rect player8 = { p8->pos_x, p8->pos_y, p8->pw, p8->pw };
-	SDL_SetRenderDrawColor(rdr, 0xF5, 0xEB, 0x27, 0xFF);
-	SDL_RenderFillRect(rdr, &player8);
-}
-
-void init_var(void) {
-	p8->pos_x = 45;
-	p8->pos_y = 40;
-	p8->dir_x = -1;
-	p8->dir_y = 0;
-	p8->pw = 10;
+void init_var(Player *self) {
+	self->pos_x = 45;
+	self->pos_y = 40;
+	self->dir_x = -1;
+	self->dir_y = 0;
+	self->pw = 10;
+	self->pveloc = 10;
 	camera_p->_x = 0;
 	camera_p->_y = 0.66;
-	map_x = (int)p8->pos_x;
-	map_y = (int)p8->pos_y;
+	map_x = (int)self->pos_x;
+	map_y = (int)self->pos_y;
 	hit = 0;
 }
 
-void move_player(SDL_Event event_e)
-{
-	if (event_e.type == SDL_KEYDOWN)
-	{
-		switch(event_e.key.keysym.sym)
-		{
-			case SDLK_w:
-			p8->pos_y -= 2;
-			break;
-
-			case SDLK_s:
-			p8->pos_y += 2;
-			break;
-
-			case SDLK_d:
-			p8->pos_x += 2;
-			break;
-
-			case SDLK_a:
-			p8->pos_x -= 2;
-			break;
-		}
+bool loads_player_texture(Player *self, SDL_Renderer *rdr) {
+	(void)self;
+	(void)rdr;
+	if (!load_from_file(custom_texture, "player.bmp")) {
+		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "An error with media!");
+		exit(-1);
+		return false;
 	}
-	if (event_e.type == SDL_KEYUP)
-	{
-		switch(event_e.key.keysym.sym)
-		{
-			case SDLK_w:
-			p8->pos_y -= 2;
-			break;
-
-			case SDLK_s:
-			p8->pos_y += 2;
-			break;
-
-			case SDLK_d:
-			p8->pos_x += 2;
-			break;
-
-			case SDLK_a:
-			p8->pos_x -= 2;
-			break;
-		}
-	}
-	if (p8->pos_x > SCREEN_WIDTH - p8->pw)
-        p8->pos_x = SCREEN_WIDTH - p8->pw;
-    if (p8->pos_y > SCREEN_HEIGHT - p8->pw)
-        p8->pos_y = SCREEN_HEIGHT - p8->pw;
-    if (p8->pos_y < 0)
-        p8->pos_y = 0;
-    if (p8->pos_x < 0)
-        p8->pos_x = 0;
+	return true;
 }
