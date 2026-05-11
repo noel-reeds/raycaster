@@ -27,12 +27,19 @@ typedef struct {
 	SDL_Renderer *renderer;
 } SDL_Context;
 
+typedef struct {
+	SDL_Texture *Texture;
+	int w;
+	int h;
+} _Texture;
+
+extern _Texture *custom_texture;
 extern SDL_Context *ctx;
 extern int map[MAP_WIDTH][MAP_HEIGHT];
 
 /* Function defs */
 bool create_game_window(void);
-void draw_player_map(SDL_Renderer *renderer);
 void free_allocated_mem(void);
+bool load_from_file(_Texture *T, const char *str_path);
 
 #endif
