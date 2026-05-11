@@ -1,33 +1,34 @@
 #include "main.h"
 #include "player.h"
 
-Player *p8;
+_Texture *custom_texture;
+Player p8;
 Plane *camera_p;
 
-void start_cast_rays(void) {
+void start_cast_rays(Player *self) {
 	/* game loop starts here.. */
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
 		camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		raydir_x = p8->dir_x + camera_p->_x * camera_x;
-		raydir_y = p8->dir_y + camera_p->_y * camera_x;
+		raydir_x = self->dir_x + camera_p->_x * camera_x;
+		raydir_y = self->dir_y + camera_p->_y * camera_x;
 		raydist_x = (raydir_x == 0) ? 1e30 : fabs(1.0 / raydir_x);
 		raydist_y = (raydir_y == 0) ? 1e30 : fabs(1.0 / raydir_y);
 
 		if (raydir_x < 0) {
 			step_x = -1;
-			initial_raydist_x = (p8->pos_x - map_x) * raydist_x;
+			initial_raydist_x = (self->pos_x - map_x) * raydist_x;
 		}
 		else {
 			step_y = 1;
-			initial_raydist_x = (map_x + 1.0 - p8->pos_x) * raydist_x;
+			initial_raydist_x = (map_x + 1.0 - self->pos_x) * raydist_x;
 		}
 		if (raydir_y < 0) {
 			step_x = -1;
-			initial_raydist_y = (p8->pos_y - map_y) * raydist_y;
+			initial_raydist_y = (self->pos_y - map_y) * raydist_y;
 		}
 		else {
 			step_y = 1;
-			initial_raydist_y = (map_x + 1.0 - p8->pos_y) * raydist_y;
+			initial_raydist_y = (map_x + 1.0 - self->pos_y) * raydist_y;
 		}
 		while (!hit) {
 			/* jump to the next square either in x-dir or y-dir */
