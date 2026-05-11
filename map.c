@@ -29,8 +29,9 @@ int map[MAP_WIDTH][MAP_HEIGHT] = {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void draw_player_map(SDL_Renderer *rdr)
+void draw_player_map(Player *self, SDL_Renderer *rdr)
 {
+	(void)self;
     int x=0, y=0, m_x=20;
     SDL_Rect sq = { x, y, m_x, m_x};
 
