@@ -5,7 +5,7 @@
 
 /* Player structs and coordinates */
 typedef struct {
-	double pos_x, pos_y;
+	double pos_x, pos_y, pveloc;
 	double dir_x, dir_y;
 	double pw;
 } Player;
@@ -16,7 +16,7 @@ typedef struct {
 } Plane;
 
 /* Defines a Player p8 */
-extern Player *p8;
+extern Player p8;
 extern Plane *camera_p;
 
 /* det. the grid/square the ray is in the map */
@@ -38,9 +38,16 @@ extern double raydist_x, raydist_y;
 extern int step_x, step_y, hit;
 
 /* Player function defs */
-void start_cast_rays(void);
-void init_var(void);
-void draw_player(SDL_Renderer *renderer);
-void move_player(SDL_Event e);
+void start_cast_rays(Player *self);
+void init_var(Player *self);
+void draw_player(Player *self, SDL_Renderer *renderer);
+void handle_keyboard_event(Player *self, SDL_Event e);
+void render_player(SDL_Renderer *rndr, _Texture *custom_texture, int player_posx, int player_posy, SDL_Rect *clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
+bool loads_player_texture(Player *self, SDL_Renderer *rdr);
+void draw_player_map(Player *self, SDL_Renderer *rdr);
+
+
+
+
 
 #endif
