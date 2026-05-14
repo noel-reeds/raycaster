@@ -7,6 +7,7 @@
 typedef struct {
 	double pos_x, pos_y, pveloc;
 	double dir_x, dir_y;
+	SDL_Rect collider;
 	double vel_x, vel_y;
 	double p_size;
 } Player;
