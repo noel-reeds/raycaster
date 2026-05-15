@@ -6,13 +6,16 @@ double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
 double initial_raydist_x, initial_raydist_y, raydist_y;
 
 void init_player_vars(Player *self) {
-	self->pos_x = 45;
-	self->pos_y = 45;
-	self->pveloc = 10;
-	self->p_size = 15;
+	self->pos_x = 0;
+	self->pos_y = 0;
 
-	self->collider.w = 45;
-	self->collider.h = 45;
+	self->p_width = 20;
+	self->p_height = 20;
+
+	self->pveloc = 10;
+
+	self->collider.w = self->p_width;
+	self->collider.h = self->p_height;
 
 	self->vel_x = 0;
 	self->vel_y = 0;
