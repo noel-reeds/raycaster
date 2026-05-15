@@ -29,7 +29,7 @@ bool create_game_window(void)
 				"Failed to create a renderer: %s", SDL_GetError());
 		}
 		else {
-			SDL_SetRenderDrawColor(ctx->renderer, 0x4A, 0x0F, 0x0B, 0x0F);
+			SDL_SetRenderDrawColor(ctx->renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderClear(ctx->renderer);
 		}
 	}
