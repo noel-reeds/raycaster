@@ -9,7 +9,7 @@ typedef struct {
 	double dir_x, dir_y;
 	SDL_Rect collider;
 	double vel_x, vel_y;
-	double p_size;
+	double p_width, p_height;
 } Player;
 
 /* Camera plane  coordinates */
@@ -48,7 +48,7 @@ void render_player(SDL_Renderer *rndr, _Texture *custom_texture, int player_posx
 bool loads_player_texture(Player *self, SDL_Renderer *rdr);
 void draw_player_map(Player *self, SDL_Renderer *rdr);
 void move_player(Player *self);
-
+bool check_collision(Player *self, SDL_Rect A, SDL_Rect B);
 
 
 
