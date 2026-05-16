@@ -47,9 +47,9 @@ void handle_keyboard_event(Player *self, SDL_Event e);
 void render_player(SDL_Renderer *rndr, _Texture *custom_texture, int player_posx, int player_posy, SDL_Rect *clip, double angle, SDL_Point *center, SDL_RendererFlip flip);
 bool loads_player_texture(Player *self, SDL_Renderer *rdr);
 void draw_player_map(Player *self, SDL_Renderer *rdr);
-void move_player(Player *self, SDL_Rect wall);
+void move_player(Player *self, int map[MAP_HEIGHT][MAP_WIDTH]);
 bool check_collision(Player *self, SDL_Rect A, SDL_Rect B);
-
+bool collision(Player *self, int map[MAP_HEIGHT][MAP_WIDTH]);
 
 
 #endif
