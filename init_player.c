@@ -33,7 +33,7 @@ void init_player_vars(Player *self) {
 bool loads_player_texture(Player *self, SDL_Renderer *rdr) {
 	(void)self;
 	(void)rdr;
-	if (!load_from_file(custom_texture, "player.bmp")) {
+	if (!load_from_file(custom_texture, "assets/player.bmp")) {
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "An error with media!");
 		exit(-1);
 		return false;
