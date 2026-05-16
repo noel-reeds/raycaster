@@ -35,13 +35,13 @@ void draw_player_map(Player *self, SDL_Renderer *rdr)
     int x=0, y=0, m_x=20;
     SDL_Rect sq = { x, y, m_x, m_x};
 
-    for (x = 0; x < MAP_WIDTH; x++)
+    for (y = 0; y < MAP_HEIGHT; y++)
     {
-        sq.x = x * m_x;
-        for (y = 0; y < MAP_HEIGHT; y++)
+        sq.y = y * m_x;
+        for (x = 0; x < MAP_WIDTH; x++)
         {
-            sq.y = y * m_x;
-            if (map[x][y] > 0) {
+            sq.x = x * m_x;
+            if (map[y][x] > 0) {
                 SDL_SetRenderDrawColor(rdr, 0, 0, 0, 255);
             }
             else {

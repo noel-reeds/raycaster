@@ -6,8 +6,8 @@ double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
 double initial_raydist_x, initial_raydist_y, raydist_y;
 
 void init_player_vars(Player *self) {
-	self->pos_x = 0;
-	self->pos_y = 0;
+	self->pos_x = 20;
+	self->pos_y = 20;
 
 	self->p_width = 20;
 	self->p_height = 20;
