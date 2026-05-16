@@ -1,12 +1,12 @@
 #include "../include/main.h"
 #include "../include/player.h"
 
-void move_player(Player *self, SDL_Rect wall) {
+void move_player(Player *self, int map[MAP_HEIGHT][MAP_WIDTH]) {
 	self->pos_x += self->vel_x;
 	self->collider.x = self->pos_x;
 
 	if (self->pos_x < 0 || self->pos_x + self->p_width > SCREEN_WIDTH ||
-			check_collision(self, self->collider, wall)) {
+			collision(self, map)) {
 		self->pos_x -= self->vel_x;
 		self->collider.x = self->pos_x;
 	}
@@ -15,7 +15,7 @@ void move_player(Player *self, SDL_Rect wall) {
 	self->collider.y = self->pos_y;
 
 	if (self->pos_y < 0 || self->pos_y + self->p_height > SCREEN_HEIGHT ||
-			check_collision(self, self->collider, wall)) {
+			collision(self, map)) {
 		self->pos_y -= self->vel_y;
 		self->collider.y = self->pos_y;
 	}
@@ -41,4 +41,21 @@ bool check_collision(Player *self, SDL_Rect player, SDL_Rect wall) {
 	if (top_p >= bottom_w || bottom_p <= top_w)
 		return false;
 	return true;
+}
+
+bool collision(Player *self, int map[MAP_HEIGHT][MAP_WIDTH]) {
+	int TILE_SIZE = 20;
+	for (int y = 0; y < MAP_HEIGHT; y++) {
+		for (int x = 0; x < MAP_WIDTH; x++) {
+			if (map[y][x] > 0) {
+				SDL_Rect sq = {
+						x * TILE_SIZE, y * TILE_SIZE,
+						TILE_SIZE, TILE_SIZE 
+						};
+				if (check_collision(self, self->collider, sq))
+					return true;
+			}
+		}
+	}
+	return false;
 }

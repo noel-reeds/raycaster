@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 			SDL_RenderFillRect(ctx->renderer, &p8.collider);
 			render_player(ctx->renderer, custom_texture,
 					p8.pos_x, p8.pos_y, NULL, 0.0, NULL, SDL_FLIP_NONE);
-			move_player(&p8, );
+			move_player(&p8, map);
 			SDL_RenderPresent(ctx->renderer);
 		}
 		SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, 
