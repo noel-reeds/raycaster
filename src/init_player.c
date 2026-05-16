@@ -1,5 +1,5 @@
-#include "main.h"
-#include "player.h"
+#include "../include/main.h"
+#include "../include/player.h"
 
 int map_x, map_y, step_x, step_y, side, hit;
 double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;

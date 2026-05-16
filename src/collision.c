@@ -1,5 +1,5 @@
-#include "main.h"
-#include "player.h"
+#include "../include/main.h"
+#include "../include/player.h"
 
 void move_player(Player *self, SDL_Rect wall) {
 	self->pos_x += self->vel_x;
@@ -22,6 +22,7 @@ void move_player(Player *self, SDL_Rect wall) {
 }
 
 bool check_collision(Player *self, SDL_Rect player, SDL_Rect wall) {
+	(void)self;
 	int left_p, right_p, top_p, bottom_p;
 	int left_w, right_w, top_w, bottom_w;
 

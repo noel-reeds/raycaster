@@ -1,5 +1,5 @@
-#include "main.h"
-#include "player.h"
+#include "../include/main.h"
+#include "../include/player.h"
 
 void free_allocated_mem(void) {
 	if (ctx) {

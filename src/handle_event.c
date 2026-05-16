@@ -1,5 +1,5 @@
-#include "main.h"
-#include "player.h"
+#include "../include/main.h"
+#include "../include/player.h"
 
 void handle_keyboard_event(Player *self, SDL_Event event_e)
 {

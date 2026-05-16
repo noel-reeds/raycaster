@@ -1,5 +1,5 @@
 # Header and C source files
-src := $(wildcard *.c) $(wildcard *.h)
+src := $(wildcard src/*.c) $(wildcard include/*.h)
 
 # Program for compiling C programs
 cc := gcc

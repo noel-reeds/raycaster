@@ -1,5 +1,5 @@
-#include "main.h"
-#include "player.h"
+#include "../include/main.h"
+#include "../include/player.h"
 
 /* Tile Map 2D Arr. */
 int map[MAP_WIDTH][MAP_HEIGHT] = {

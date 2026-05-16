@@ -1,4 +1,5 @@
-#include "main.h"
+#include "../include/main.h"
+#include "../include/player.h"
 
 bool load_from_file(_Texture *T, const char *str_path)
 {

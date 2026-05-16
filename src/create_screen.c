@@ -1,5 +1,6 @@
-#include "main.h"
-#include "player.h"
+#include "../include/main.h"
+#include "../include/player.h"
+
 SDL_Context *ctx;
 
 bool create_game_window(void)
