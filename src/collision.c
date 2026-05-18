@@ -1,5 +1,6 @@
 #include "../include/main.h"
 #include "../include/player.h"
+#include "../include/events.h"
 
 void move_player(Player *self, int map[MAP_HEIGHT][MAP_WIDTH]) {
 	self->pos_x += self->vel_x;

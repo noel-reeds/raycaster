@@ -1,9 +1,11 @@
 #include "../include/main.h"
 #include "../include/player.h"
+#include "../include/map.h"
+#include "../include/ray.h"
 
-int map_x, map_y, step_x, step_y, side, hit;
-double pw_dist, camera_x, raydir_x, raydir_y, raydist_x;
-double initial_raydist_x, initial_raydist_y, raydist_y;
+Map *tile_map;
+Wall *wall;
+Ray *ray_r;
 
 void init_player_vars(Player *self) {
 	self->pos_x = 20;
@@ -25,9 +27,9 @@ void init_player_vars(Player *self) {
 
 	camera_p->_x = 0;
 	camera_p->_y = 0.66;
-	map_x = (int)self->pos_x;
-	map_y = (int)self->pos_y;
-	hit = 0;
+	tile_map->map_x = (int)self->pos_x;
+	tile_map->map_y = (int)self->pos_y;
+	wall->hit = 0;
 }
 
 bool loads_player_texture(Player *self, SDL_Renderer *rdr) {
@@ -40,4 +42,3 @@ bool loads_player_texture(Player *self, SDL_Renderer *rdr) {
 	}
 	return true;
 }
-

@@ -1,5 +1,9 @@
 #include "../include/main.h"
 #include "../include/player.h"
+#include "../include/ray.h"
+#include "../include/events.h"
+#include "../include/map.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -9,6 +13,9 @@ int main(int argc, char *argv[])
 	ctx = malloc(sizeof(SDL_Context));
 	custom_texture = malloc(sizeof(_Texture));
 	camera_p = malloc(sizeof(Plane));
+	tile_map = malloc(sizeof(Map));
+	wall = malloc(sizeof(Wall));
+	ray_r = malloc(sizeof(Ray));
 
 	init_player_vars(&p8);
 
