@@ -6,7 +6,6 @@
 #define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 480
 
-/* SDL & std headers */
 #include <SDL.h>
 #include <stdbool.h>
 #include <SDL_image.h>
@@ -19,9 +18,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern int map[MAP_WIDTH][MAP_HEIGHT];
-
-/* Window or screen variables */
 typedef struct {
 	SDL_Window *screen;
 	SDL_Renderer *renderer;
@@ -35,9 +31,7 @@ typedef struct {
 
 extern _Texture *custom_texture;
 extern SDL_Context *ctx;
-extern int map[MAP_WIDTH][MAP_HEIGHT];
 
-/* Function defs */
 bool create_game_window(void);
 void free_allocated_mem(void);
 bool load_from_file(_Texture *T, const char *str_path);
