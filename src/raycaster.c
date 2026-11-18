@@ -19,18 +19,15 @@ void start_cast_rays(Player *self) {
 
 		if (ray_r->raydir_x < 0) {
 			wall->step_x = -1;
-			ray_r->initial_raydist_x = 
-				(self->pos_x - tile_map->map_x) * ray_r->raydist_x;
+			ray_r->initial_raydist_x = (self->pos_x - tile_map->map_x) * ray_r->raydist_x;
 		}
 		else {
 			wall->step_y = 1;
-			ray_r->initial_raydist_x = 
-				(tile_map->map_x + 1.0 - self->pos_x) * ray_r->raydist_x;
+			ray_r->initial_raydist_x = (tile_map->map_x + 1.0 - self->pos_x) * ray_r->raydist_x;
 		}
 		if (ray_r->raydir_y < 0) {
 			wall->step_x = -1;
-			ray_r->initial_raydist_y = 
-				(self->pos_y - tile_map->map_y) * ray_r->raydist_y;
+			ray_r->initial_raydist_y = (self->pos_y - tile_map->map_y) * ray_r->raydist_y;
 		}
 		else {
 			wall->step_y = 1;
