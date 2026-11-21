@@ -14,7 +14,7 @@ void init_player_vars(Player *self) {
 	self->p_width = 20;
 	self->p_height = 20;
 
-	self->pveloc = 10;
+	self->pveloc = 5;
 
 	self->collider.w = self->p_width;
 	self->collider.h = self->p_height;
