@@ -5,8 +5,8 @@
 
 
 typedef struct sq_map {
-	int map_x;
-	int map_y;
+	int mapx;
+	int mapy;
 } Map;
 
 extern Map *tile_map;

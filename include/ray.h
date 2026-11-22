@@ -3,24 +3,24 @@
 #include "player.h"
 
 typedef struct light_r {
-	double raydir_x, raydir_y;
-	double initial_raydist_x, initial_raydist_y;
-	double raydist_x, raydist_y;
+	double dirx, diry;
+	double irdx, irdy;
+	double rdx, rdy;
 } Ray;
 
 typedef struct wall {
 	int side;
-	int step_x, step_y, hit;
+	int stepx, stepy, hit;
 } Wall;
 
 typedef struct {
-	double _x, _y;
+	double x, y;
 	double camera_x;
 	double pw_dist;
 } Plane;
 
 extern Plane *camera_p;
-extern Ray *ray_r;
+extern Ray *ray;
 extern Wall *wall;
 
 void start_cast_rays(Player *self);

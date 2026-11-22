@@ -3,10 +3,10 @@
 #include "main.h"
 
 typedef struct {
-	double pos_x, pos_y, pveloc;
-	double dir_x, dir_y;
+	double posx, posy, pveloc;
+	double dirx, diry;
 	SDL_Rect collider;
-	double vel_x, vel_y;
+	double velx, vely;
 	double p_width, p_height;
 } Player;
 
