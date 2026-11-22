@@ -5,11 +5,11 @@
 
 Map *tile_map;
 Wall *wall;
-Ray *ray_r;
+Ray *ray;
 
 void init_player_vars(Player *self) {
-	self->pos_x = 20;
-	self->pos_y = 20;
+	self->posx = 20;
+	self->posy = 20;
 
 	self->p_width = 20;
 	self->p_height = 20;
@@ -19,16 +19,16 @@ void init_player_vars(Player *self) {
 	self->collider.w = self->p_width;
 	self->collider.h = self->p_height;
 
-	self->vel_x = 0;
-	self->vel_y = 0;
+	self->velx = 0;
+	self->vely = 0;
 
-	self->dir_x = -1;
-	self->dir_y = 0;
+	self->dirx = -1;
+	self->diry = 0;
 
-	camera_p->_x = 0;
-	camera_p->_y = 0.66;
-	tile_map->map_x = (int)self->pos_x;
-	tile_map->map_y = (int)self->pos_y;
+	camera_p->x = 0;
+	camera_p->y = 0.66;
+	tile_map->mapx = (int)self->posx;
+	tile_map->mapy = (int)self->posy;
 	wall->hit = 0;
 }
 

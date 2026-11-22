@@ -6,55 +6,57 @@
 
 _Texture *custom_texture;
 Player p8;
-Plane *camera_p;
+Plane *camera_p
 
-void start_cast_rays(Player *self) {
-	/* game loop starts here.. */
+void start_cast_rays(Player *self)
+{
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
+        // calc. ray direction and position
 		camera_p->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
-		ray_r->raydir_x = self->dir_x + camera_p->_x * camera_p->camera_x;
-		ray_r->raydir_y = self->dir_y + camera_p->_y * camera_p->camera_x;
-		ray_r->raydist_x = (ray_r->raydir_x == 0) ? 1e30 : fabs(1.0 / ray_r->raydir_x);
-		ray_r->raydist_y = (ray_r->raydir_y == 0) ? 1e30 : fabs(1.0 / ray_r->raydir_y);
 
-		if (ray_r->raydir_x < 0) {
-			wall->step_x = -1;
-			ray_r->initial_raydist_x = (self->pos_x - tile_map->map_x) * ray_r->raydist_x;
+		ray->dirx = self->dirx + camera_p->x * camera_p->camera_x;
+		ray->diry = self->diry + camera_p->y * camera_p->camera_x;
+
+		ray->rdx = (ray->dirx == 0) ? 1e30 : fabs(1.0 / ray->dirx);
+		ray->rdy = (ray->diry == 0) ? 1e30 : fabs(1.0 / ray->diry);
+
+		if (ray->rdx < 0) {
+			wall->stepx = -1;
+			ray->irdx = (self->pos_x - tile_map->mapx) * ray->rdx;
 		}
 		else {
 			wall->step_y = 1;
-			ray_r->initial_raydist_x = (tile_map->map_x + 1.0 - self->pos_x) * ray_r->raydist_x;
+			ray->irdx = (tile_map->map_x + 1.0 - self->posx) * ray->rdx;
 		}
-		if (ray_r->raydir_y < 0) {
-			wall->step_x = -1;
-			ray_r->initial_raydist_y = (self->pos_y - tile_map->map_y) * ray_r->raydist_y;
+		if (ray->rdy < 0) {
+			wall->stepx = -1;
+			ray->irdy = (self->posy - tile_map->mapy) * ray->rdy;
 		}
 		else {
-			wall->step_y = 1;
-			ray_r->initial_raydist_y = 
-				(tile_map->map_x + 1.0 - self->pos_y) * ray_r->raydist_y;
+			wall->stepy = 1;
+			ray->irdy = (tile_map->mapx + 1.0 - self->posy) * ray->rdy;
 		}
 		while (!wall->hit) {
 			/* jump to the next square either in x-dir or y-dir */
-			if (ray_r->initial_raydist_x < ray_r->initial_raydist_y) {
-				ray_r->initial_raydist_x += ray_r->raydist_x;
-				tile_map->map_x += wall->step_x;
+			if (ray->irdx < ray->irdy) {
+				ray->irdx += ray->rdx;
+				tile_map->mapx += wall->stepx;
 				wall->side = 0;
 			}
 			else {
-				ray_r->initial_raydist_y += ray_r->raydist_y;
-				tile_map->map_y += wall->step_y;
+				ray->irdy += ray->rdy;
+				tile_map->mapy += wall->stepy;
 				wall->side = 1;
 			}
 			/* check if ray is inside a wall */
-			if (map[tile_map->map_x][tile_map->map_y] > 0)
+			if (map[tile_map->mapx][tile_map->mapy] > 0)
 				wall->hit = 1;
 		}
 		/* finds shortest distance to the wall */
 		if (wall->side == 0)
-			camera_p->pw_dist = ray_r->initial_raydist_x - ray_r->raydist_x;
+			camera_p->pw_dist = ray->irdx - ray->rdx;
 		else
-			camera_p->pw_dist = ray_r->initial_raydist_y - ray_r->raydist_y;
+			camera_p->pw_dist = ray->irdy - ray->rdy;
 		/* calculate line height to draw on screen */
 		int line_h = (int)(SCREEN_HEIGHT / camera_p->pw_dist);
 		/* finds highest and lowest pixel to fill in current stripe */
